@@ -3,18 +3,26 @@ package com.example.notesapp;
 public class NoteModel {
 
     private int id;
-    private String title;
-    private String data;
+    private String title,data;
+    private int bookmark;
 
     public NoteModel(String title, String data) {
         this.title = title;
         this.data = data;
+        bookmark = 0;
     }
 
-    public NoteModel(int id, String title, String data) {
+    public NoteModel(String title, String data, int bookmark) {
+        this.title = title;
+        this.data = data;
+        this.bookmark = bookmark;
+    }
+
+    public NoteModel(int id, String title, String data, int bookmark) {
         this.id = id;
         this.title = title;
         this.data = data;
+        this.bookmark = bookmark;
     }
 
     public void setTitle(String title) {
@@ -39,5 +47,13 @@ public class NoteModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getBookmark() {
+        return bookmark;
+    }
+
+    public void setBookmark(int bookmark) {
+        this.bookmark = bookmark;
     }
 }

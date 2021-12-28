@@ -31,9 +31,23 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/save"
+            android:id="@+id/ivSave"
+            android:layout_marginRight="8dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/ivBookmark"
             android:layout_marginRight="8dp"
             android:src="@drawable/bookmark" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivEdit"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/edit" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -54,21 +68,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/noteTitle"
             android:textSize="25dp"
-            android:text="Title"
+            android:textColor="#212120"
+            android:background="@null"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp" />
 
-        <TextView
+        <EditText
             android:id="@+id/noteData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#403f3f"
+            android:background="@null"
             android:textSize="22sp"
             android:fontFamily="sans-serif-condensed"
             android:layout_marginRight="16dp"

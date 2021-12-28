@@ -15,7 +15,7 @@ import java.util.List;
 public class DbHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "NotesDB";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
     private static final String TABLE_NAME = "NotesTable";
 
     public DbHelper(@Nullable Context context) {
@@ -25,7 +25,7 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME+";");
-        String query = "CREATE TABLE "+TABLE_NAME+" ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, data TEXT);";
+        String query = "CREATE TABLE "+TABLE_NAME+" ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, data TEXT, bookmark INTEGER);";
         db.execSQL(query);
     }
 
@@ -40,6 +40,8 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("title", noteModel.getTitle());
         cv.put("data", noteModel.getData());
+        cv.put("bookmark", noteModel.getBookmark());
+
         db.insert(TABLE_NAME, null, cv);
         db.close();
     }
@@ -51,7 +53,7 @@ public class DbHelper extends SQLiteOpenHelper {
         List<NoteModel> noteList = new ArrayList<>();
         if(cursor.moveToFirst()) {
             do{
-                noteList.add(new NoteModel(cursor.getInt(0), cursor.getString(1), cursor.getString(2)));
+                noteList.add(new NoteModel(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3)));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -79,6 +81,18 @@ public class DbHelper extends SQLiteOpenHelper {
     public void deleteNote(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE_NAME+" WHERE id="+id);
+        db.close();
+    }
+
+    public void setBookmark(int id, int bMark) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE "+TABLE_NAME+" SET bookmark="+bMark+" WHERE id="+id+";");
+        db.close();
+    }
+
+    public void editNote(int id, String title, String data) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE "+TABLE_NAME+" SET title=\""+title+"\" , data=\""+data+"\" WHERE id="+id+";");
         db.close();
     }
 }
